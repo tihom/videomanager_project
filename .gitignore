@@ -1,0 +1,7 @@
+db.sqlite3
+__pycache__
+videomanager.sublime-workspace
+videomanager/settings/secrets/development.py
+videomanager/settings/secrets/production.py
+videomanager/settings/secrets/staging.py
+videomanager/settings/secrets/testing.py
