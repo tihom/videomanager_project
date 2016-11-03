@@ -1,5 +1,6 @@
 # videomanager_project
-Web applicaton for video management for example translation for Khan Academy videos to other lanaguages.
+Web project to manage educational videos. Applications include:
+- Translation of Khan Academy videos to other lanaguages.
 
 Dependencies:
 python3
