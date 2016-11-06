@@ -7,7 +7,10 @@ python3
 vitualenv
 See requirements folder for environment specific packages.
 
-Need to add environemnt specific secrets file in secrets folder e.g secrets/development.py.
 
-For intial set up refer: 
+For intial set up (virtualenv, python, folder structure) refer: 
 http://www.marinamele.com/taskbuster-django-tutorial/taskbuster-working-environment-and-start-django-project
+
+INSTALLATION
+Add secret config files in settings/secrets folder for each enviroment e.g. development.py
+Config template and notes on how to generate them are in settings/secrets/__init__.py.
