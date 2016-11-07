@@ -19,7 +19,7 @@ from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 
 from .views import home, home_files
-
+from translations.views import OriginalVideoViewSet, VideoMetaViewSet
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -37,13 +37,16 @@ class UserViewSet(viewsets.ModelViewSet):
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'original_videos', OriginalVideoViewSet)
+router.register(r'video_metas', VideoMetaViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', home, name='home'),
+    # url(r'^$', home, name='home'),
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
         home_files, name='home-files'),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls',
         namespace='rest_framework')),
+    url(r'^translations/', include('translations.urls')),
 ]

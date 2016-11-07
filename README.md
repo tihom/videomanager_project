@@ -14,3 +14,6 @@ http://www.marinamele.com/taskbuster-django-tutorial/taskbuster-working-environm
 INSTALLATION
 Add secret config files in settings/secrets folder for each enviroment e.g. development.py
 Config template and notes on how to generate them are in settings/secrets/__init__.py.
+
+To run in a particular enviroment set the following (can also be done in postactivate of a virtualenv):
+DJANGO_SETTINGS_MODULE="videomanager.settings.development"
