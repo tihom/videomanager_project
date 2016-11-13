@@ -17,3 +17,7 @@ Config template and notes on how to generate them are in settings/secrets/__init
 
 To run in a particular enviroment set the following (can also be done in postactivate of a virtualenv):
 DJANGO_SETTINGS_MODULE="videomanager.settings.development"
+
+
+Production Setup:
+http://michal.karzynski.pl/blog/2013/06/09/django-nginx-gunicorn-virtualenv-supervisor/
