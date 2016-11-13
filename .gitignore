@@ -6,3 +6,4 @@ videomanager/settings/secrets/production.py
 videomanager/settings/secrets/staging.py
 videomanager/settings/secrets/testing.py
 *.log
+.DS_Store
