@@ -9,24 +9,37 @@ class VideoMetaSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class OriginalVideoSerializer(serializers.HyperlinkedModelSerializer):
-    video_meta = VideoMetaSerializer()
+    youtube_url = serializers.CharField(source='video_meta.youtube_url', required=False)
+    title = serializers.CharField(source='video_meta.title', required=False)
+    description = serializers.CharField(source='video_meta.description', required=False)
+    self_link = serializers.HyperlinkedIdentityField(view_name='originalvideo-detail')
 
     class Meta:
         model = OriginalVideo
         fields = ('sno', 'url', 'domain', 'subject', 'topic',
-                  'tutorial', 'subject', 'priority', 'video_meta')
+                  'tutorial', 'subject', 'priority', 'self_link',
+                  'youtube_url', 'title', 'description',)
+        extra_kwargs = {
+            "tutorial": {"required": False}
+        }
 
     def create(self, validated_data):
-        video_meta_data = validated_data.pop('video_meta')
-        video_meta = VideoMeta.objects.create(**video_meta_data)
+        video_meta_data = validated_data.pop('video_meta', None)
+        if video_meta_data is not None:
+            video_meta = VideoMeta.objects.create(**video_meta_data)
+            validated_data.update({'video_meta': video_meta})
 
-        original_video = OriginalVideo.objects.create(video_meta=video_meta,
-                                                      **validated_data)
-
+        original_video = OriginalVideo.objects.create(**validated_data)
         return original_video
 
-    # Update will not work with nested atributes see
-    # http://stackoverflow.com/questions/27434593/django-rest-framework-3-0-create-or-update-in-nested-serializer
-    # it can be overwritten to work with nested attributes but a bit more involved
-    # for now assuming update will be done separately for the relted video meta
-    # will need to use PATCH for updating OriginalVideo as PUT expects all the fields specified in the serilizer
+    def update(self, instance, validated_data):
+        video_meta_data = validated_data.pop('video_meta', None)
+        if video_meta_data is not None:
+            if hasattr(instance, 'video_meta'):
+                video_meta = instance.video_meta
+                super(OriginalVideoSerializer, self).update(video_meta, video_meta_data)
+            else:
+                video_meta = VideoMeta.objects.create(**video_meta_data)
+                instance.video_meta = video_meta
+
+        return super(OriginalVideoSerializer, self).update(instance, validated_data)
