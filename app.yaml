@@ -1,0 +1,6 @@
+runtime: python
+vm: true
+entrypoint: gunicorn -b :$PORT videomanager.wsgi
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: 'videomanager.settings.appengine'
