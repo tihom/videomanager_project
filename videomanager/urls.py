@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
 
-from .views import home_files
+from .views import home_files, sandbox
 from translations.views import OriginalVideoViewSet, VideoMetaViewSet
 from volunteer.views import UserViewSet, ProfileViewSet
 
@@ -29,6 +29,7 @@ router.register(r'users', UserViewSet)
 router.register(r'profiles', ProfileViewSet)
 
 urlpatterns = [
+    url(r'^sandbox/', sandbox),
     url(r'^admin/', admin.site.urls),
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
         home_files, name='home-files'),
