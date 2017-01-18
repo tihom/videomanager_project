@@ -3,15 +3,15 @@ from rest_framework import authentication
 from rest_framework import exceptions
 
 
-class SimpleAuthentication(authentication.BaseAuthentication):
-    def authenticate(self, request):
-        username = request.META.get('HTTP_X_USERNAME')
-        if not username:
-            return None
+class GoogleAuthentication(authentication.BaseAuthentication):
+	def authenticate(self, request):
+		# import here only as only works in production
+		from google.appengine.api import users
 
-        try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
-            raise exceptions.AuthenticationFailed('No such user')
+		user = users.get_current_user()
+		if not user:
+			return None
 
-        return (user, None)
+		user, created = User.objects.get_or_create(username=user.nickname,
+								email=user.email)
+		return (user, None)

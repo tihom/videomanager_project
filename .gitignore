@@ -11,3 +11,4 @@ videomanager/settings/secrets/appengine.py
 *.pyc
 cloud_sql_proxy
 *.json
+todos.txt
