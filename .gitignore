@@ -9,3 +9,5 @@ videomanager/settings/secrets/appengine.py
 *.log
 .DS_Store
 *.pyc
+cloud_sql_proxy
+*.json

@@ -34,6 +34,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     def create_or_update_profile(self, user, profile_data):
         profile, created = Profile.objects.get_or_create(user=user,
-                                                         defaults=profile_data)
+                                    defaults=profile_data)
         if not created and profile_data is not None:
             super(UserSerializer, self).update(profile, profile_data)
