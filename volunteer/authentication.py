@@ -19,7 +19,7 @@ def google_auth():
 			nickname, logout_url)
 	else:
 		try:
-			login_url = google_users_api.create_login_url('/')
+			login_url = google_users_api.create_login_url('/_/')
 			greeting = '<a href="{}">Sign in</a>'.format(login_url)
 		except AssertionError:
 			greeting = 'Google auth not working'
@@ -43,6 +43,6 @@ class GoogleAuthentication(authentication.BaseAuthentication):
 		if not user:
 			return None
 
-		user, created = User.objects.get_or_create(username=user.nickname,
-								email=user.email)
+		user, created = User.objects.get_or_create(username=user.nickname(),
+								email=user.email())
 		return (user, None)
