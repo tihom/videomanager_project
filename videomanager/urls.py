@@ -19,7 +19,8 @@ from rest_framework import routers
 
 from .views import home, home_files, sandbox
 from translations.views import OriginalVideoViewSet, VideoMetaViewSet
-from volunteer.views import UserViewSet, ProfileViewSet, google_auth_view
+from volunteer.views import UserViewSet, ProfileViewSet
+from authentication.views import google_auth
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -35,10 +36,8 @@ urlpatterns = [
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
         home_files, name='home-files'),
     url(r'^_/', include(router.urls)),
-    # url(r'^api-auth/', include('volunteer.urls',
-    #     namespace='rest_framework')),
     url(r'^api-auth/', include('rest_framework.urls',
         namespace='rest_framework')),
-    url(r'^google-auth', google_auth_view),
+    url(r'^google-auth', google_auth),
     url(r'^translations/', include('translations.urls')),
 ]

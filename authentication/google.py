@@ -1,25 +1,25 @@
 from django.contrib.auth.models import User
 
-from rest_framework import authentication
+from rest_framework import authentication as rest_auth
 # import only works iif glcoud and appengine CLIs are installed
 try:
 	from google.appengine.api import users as google_users_api
 except ImportError:
 	google_users_api = None
 
-def google_auth():
+def google_login(redirect_path):
 	if google_users_api is None:
 		return "Google auth api not in path"
 	
 	user = google_user()
 	if user:
 		nickname = user.nickname()
-		logout_url = google_users_api.create_logout_url('/_/')
+		logout_url = google_users_api.create_logout_url(redirect_path)
 		greeting = 'Welcome, {}! (<a href="{}">sign out</a>)'.format(
 			nickname, logout_url)
 	else:
 		try:
-			login_url = google_users_api.create_login_url('/_/')
+			login_url = google_users_api.create_login_url(redirect_path)
 			greeting = '<a href="{}">Sign in</a>'.format(login_url)
 		except AssertionError:
 			greeting = 'Google auth not working'
@@ -35,7 +35,7 @@ def google_user():
 		return None
 
 
-class GoogleAuthentication(authentication.BaseAuthentication):
+class GoogleAuthentication(rest_auth.BaseAuthentication):
 	def authenticate(self, request):
 		if google_users_api is None:
 			return None
