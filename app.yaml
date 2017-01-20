@@ -18,6 +18,14 @@ libraries:
   version: 1.2.5
 - name: ssl
   version: 2.7
+- name: yaml
+  version: '3.10'
+- name: lxml
+  version: 2.3
+- name: setuptools
+  version: 0.6c11
+- name: pycrypto
+  version: 2.3
 
 env_variables:
   DJANGO_SETTINGS_MODULE: 'videomanager.settings.production'
