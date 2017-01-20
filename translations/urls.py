@@ -1,7 +1,6 @@
-from django.conf.urls import url
+from . import views, routers
 
-from . import views
-
-urlpatterns = [
-    url(r'^$', views.index, name='index'),
-]
+router = routers.VideoRouter()
+router.register(r'original_videos', views.OriginalVideoViewSet)
+router.register(r'video_metas', views.VideoMetaViewSet)
+urlpatterns = router.urls

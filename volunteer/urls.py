@@ -1,3 +1,6 @@
-from django.conf.urls import url
+from . import views, routers
 
-from . import views
+router = routers.UserRouter()
+router.register(r'users', views.UserViewSet)
+# router.register(r'profiles', views.ProfileViewSet)
+urlpatterns = router.urls

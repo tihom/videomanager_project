@@ -15,27 +15,24 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from rest_framework import routers
+
+from rest_framework.schemas import get_schema_view
 
 from .views import home, home_files, sandbox
-from translations.views import OriginalVideoViewSet, VideoMetaViewSet
-from volunteer.views import UserViewSet, ProfileViewSet
+from volunteer.urls import urlpatterns as volunteer_urlpatterns
+from translations.urls import urlpatterns as translations_urlpatterns
 
-# Routers provide an easy way of automatically determining the URL conf.
-router = routers.DefaultRouter()
-router.register(r'original_videos', OriginalVideoViewSet)
-router.register(r'video_metas', VideoMetaViewSet)
-router.register(r'users', UserViewSet)
-router.register(r'profiles', ProfileViewSet)
+schema_view = get_schema_view(title="Video Manager API")
+api_urls = volunteer_urlpatterns #+ translations_urlpatterns
 
 urlpatterns = [
     url(r'^$', home),
-    url(r'^sandbox', sandbox),
+    # url(r'^sandbox', sandbox),
     url(r'^admin/', admin.site.urls),
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
         home_files, name='home-files'),
-    url(r'^_/', include(router.urls)),
+    url(r'^_/', include(api_urls)),
+    url(r'^_/$', schema_view),
     url(r'^api-auth/', include('authentication.urls',
-        namespace='rest_framework')),
-    url(r'^translations/', include('translations.urls')),
+        namespace='rest_framework'))
 ]

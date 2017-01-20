@@ -3,23 +3,23 @@ from .models import Profile
 from rest_framework import serializers
 
 
-class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
         fields = '__all__'
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
 
     # A field from the user's profile:
     phone_number = serializers.CharField(source='profile.phone_number', required=False)
-    self_link = serializers.HyperlinkedIdentityField(view_name='user-detail')
+    # self_link = serializers.HyperlinkedIdentityField(view_name='user-detail')
 
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'first_name', 'last_name',
-                  'phone_number', 'self_link')
+                  'phone_number')
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile', None)

@@ -5,3 +5,7 @@ Django==1.10.3
 django-filter==0.15.3
 djangorestframework==3.5.2
 Markdown==2.6.7
+coreapi==2.1.1
+requests==2.12.5
+uritemplate==3.0.0
+itypes==1.1.0
