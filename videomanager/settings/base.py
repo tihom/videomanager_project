@@ -23,7 +23,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'authentication.google.GoogleAuthentication',
+        'authentication.google_authentication.GoogleAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
 }

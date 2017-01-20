@@ -1,8 +1,24 @@
 from django.http import HttpResponse
+from django.shortcuts import redirect
 
-from .google import google_login
+from .google_authentication import GoogleAuthentication, GoogleAuthException
 
-def google_auth(request):
+def login(request):
 	_next = request.GET.get("next", "/")
-	greeting = google_login(_next)
-	return HttpResponse(greeting)
+	try:
+		greeting = GoogleAuthentication().auth_greeting(_next)
+		return HttpResponse(greeting)
+	except GoogleAuthException, e:
+		return HttpResponse(str(e))
+		
+
+def logout(request):
+	_next = request.GET.get("next", "/")
+	try:
+		greeting = GoogleAuthentication().auth_greeting(_next)
+		return HttpResponse(greeting)
+	except GoogleAuthException, e:
+		return HttpResponse(str(e))
+		
+
+	
