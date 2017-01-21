@@ -25,23 +25,17 @@ class VolunteerViewSet(viewsets.ModelViewSet):
         return super(self.__class__, self).get_permissions()
 
     def lookupuser(self, request):
-        """
-        Get currently logged in user
-        """
+        """Get currently logged in user"""
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
 
     def get_team(self, request):
-        """
-        Get the team of currently logged user
-        """
+        """Get the list of team member for currently logged in user"""
         serializer = VolunteerSerializer(request.user.team, many=True)
         return Response(serializer.data)
 
     def add_team_member(self, request):
-        """
-        Post to add new team member
-        """
+        """Post to add new team member"""
         leader = request.user
         # check if username is not taken already
         new_username = request.data["username"]
@@ -62,9 +56,7 @@ class VolunteerViewSet(viewsets.ModelViewSet):
         return Response(volunteer_serializer.data)
 
     def update_team_member(self, request, user_id):
-        ''''
-        Update team member
-        '''
+        ''''Update team member' by user id'''
         leader = request.user
         # check if user exists
         user = User.objects.get(pk=user_id)
@@ -91,6 +83,7 @@ class VolunteerViewSet(viewsets.ModelViewSet):
         return Response(volunteer_serializer.data)
 
     def delete_team_member(self, request, user_id):
+        '''Delete team member by user id'''
         leader = request.user
         # check if user exists
         user = User.objects.get(pk=user_id)
@@ -100,7 +93,7 @@ class VolunteerViewSet(viewsets.ModelViewSet):
         volunteer = user.volunteer
         if not volunteer and volunteer.leader != leader:
             raise serializers.ValidationError('User not part of your team')
-            
+
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

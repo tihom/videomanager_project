@@ -15,7 +15,7 @@ class VolunteerRouter(SimpleRouter):
             initkwargs={'suffix': 'Detail'}
         ),
         Route(
-            url=r'^team$',
+            url=r'^team/$',
             mapping={'get': 'get_team'},
             name='team-list',
             initkwargs={'suffix': 'List'}
