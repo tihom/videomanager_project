@@ -1,6 +1,5 @@
 from . import views, routers
 
-router = routers.UserRouter()
-router.register(r'users', views.UserViewSet)
-# router.register(r'profiles', views.ProfileViewSet)
+router = routers.VolunteerRouter()
+router.register(r'volunteers', views.VolunteerViewSet)
 urlpatterns = router.urls

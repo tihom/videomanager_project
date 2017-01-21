@@ -1,39 +1,21 @@
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Volunteer
 from rest_framework import serializers
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Profile
-        fields = '__all__'
-
 
 class UserSerializer(serializers.ModelSerializer):
 
-    # A field from the user's profile:
-    phone_number = serializers.CharField(source='profile.phone_number', required=False)
-    # self_link = serializers.HyperlinkedIdentityField(view_name='user-detail')
-
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name',
-                  'phone_number')
+        fields = ('id', 'username', 'email', 'first_name', 'last_name',)
 
-    def create(self, validated_data):
-        profile_data = validated_data.pop('profile', None)
-        user = super(UserSerializer, self).create(validated_data)
-        self.create_or_update_profile(user, profile_data)
-        return user
+class VolunteerSerializer(serializers.ModelSerializer):
+    # field from the user model
+    username = serializers.CharField(source='user.username', required=False)
+    email = serializers.CharField(source='user.email', required=False)
+    first_name = serializers.CharField(source='user.first_name', required=False)
+    last_name = serializers.CharField(source='user.last_name', required=False)
 
-    def update(self, instance, validated_data):
-        profile_data = validated_data.pop('profile', None)
-        self.create_or_update_profile(instance, profile_data)
-        return super(UserSerializer, self).update(instance, validated_data)
-
-    def create_or_update_profile(self, user, profile_data):
-        profile, created = Profile.objects.get_or_create(user=user,
-                                    defaults=profile_data)
-        if not created and profile_data is not None:
-            super(UserSerializer, self).update(profile, profile_data)
+    class Meta:
+        model = Volunteer
+        fields = ('user_id', 'username', 'email', 'first_name', 'last_name',
+            'phone_number', 'leader') 
