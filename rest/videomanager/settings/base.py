@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django.contrib.sites',
     'rest_framework',
 ]
 
@@ -135,3 +136,7 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, "static")
 STATICFILES_DIRS = (
     os.path.join(WEBAPP_DIR, "static"),
 )
+
+# SITE ROOT PATH
+# custom config to host the site on a non-root path
+SITE_ROOT_PATH = ""

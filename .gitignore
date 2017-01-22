@@ -10,7 +10,6 @@ rest/videomanager/settings/secrets/development.py
 rest/videomanager/settings/secrets/production.py
 rest/videomanager/settings/secrets/staging.py
 rest/videomanager/settings/secrets/testing.py
-rest/videomanager/settings/secrets/appengine.py
 
 rest/cloud_sql_proxy/*
 rest/todos.txt

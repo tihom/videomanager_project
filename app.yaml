@@ -4,10 +4,10 @@ api_version: 1
 threadsafe: yes
 
 handlers:
-# - url: /rest/static
-#   static_dir: rest/static/
+- url: /rest/static/
+  static_dir: rest/static/
 - url: /rest/.*
-  script: rest.videomanager.wsgi.application
+  script: videomanager.wsgi.application
 
 # Only pure Python libraries can be vendored
 # Python libraries that use C extensions can

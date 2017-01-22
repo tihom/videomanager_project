@@ -8,6 +8,11 @@ DEBUG = True
 # TODO: change this to domain once finalzied
 ALLOWED_HOSTS = ["*"]
 
+# SITE ROOT PATH
+# custom config to host the site on a non-root path
+SITE_ROOT_PATH = "rest/"
+# url path for static files
+STATIC_URL = "/rest/static/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
